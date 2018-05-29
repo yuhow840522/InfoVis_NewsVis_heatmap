@@ -602,10 +602,9 @@ for (i = 0; i < 4; i++) {
     'font-size': "12px",
     'x': 115,
     'y': 85 + y_move,
-    //'rotate':30
-    //"xlink:href": '#curve',
+
   })
-  //.text(year_tmp+"年");
+
   .text(year_temp+"年");
   y_move+=22;
   year_temp+=1;
