@@ -526,12 +526,12 @@ var colorDomain = d3.extent(data, function (d) {
   return d.value;
 });
 
-//get domain
+//get domain of colorScale
 var colorScale = d3.scale.linear()
 .domain(colorDomain)
 .range(["#F6F0F0", "#FA0404"]);
 
-
+// tooltip
 var tip = d3.tip()
 .attr('class', 'd3-tip')
 .offset([112, -30])
@@ -540,16 +540,16 @@ var tip = d3.tip()
   "招生名額:" + d.招生人數 + "<br>" + "錄取名額:" + d.錄取人數;
 })
 
+// draw svg scale
+var svg = d3.select('#chart').append("svg")
+.attr("width", 1480)
+.attr("height", 770);
 
-var svg = d3.select('body').append("svg")
-.attr("width", 1600)
-.attr("height", 1000);
-var s = d3.select('svg');
 var rectangles = svg.selectAll("rect")
 .data(data)
 .enter()
 .append("rect")
-.attr("class", "fuck")
+.attr("class", "tooltipshow")
 .attr("x", 00)
 .attr("width", 20)
 .attr("y", 100)
@@ -560,22 +560,12 @@ var rectangles = svg.selectAll("rect")
 svg.call(tip);
 
 
-// svg.append("defs").append("path")
-// .attr("id", "curve")
-// //.attr("d", "M100,200 L900,100")
-// .attr("d",function(d){
-//     var x1 = (d/4+1)*21+110;
-//     var x2 = (d/4+1)*21+110+20;
-
-
-//     return "M"+x1.toString()+",165 L"+x2.toString()+",140";
-
-// });
-
+var s = d3.select('svg');
 
 //w,h
 var y = 50;
 var x = 0;
+
 rectangles
 .attr("y", function (d) {
   if (d.school_id == 24) {
@@ -584,8 +574,7 @@ rectangles
   else if (d.school_id == 67) {
     y = 490;
   }
-  return (d.year - 103) * 21 + y;
-  //return (d.year-103) * 22+200;
+  return (d.year - 103) * 22 + y;
 })
 .attr("x", function (d) {
   if (d.school_id == 24) {
@@ -595,7 +584,6 @@ rectangles
     x = 66
   }
   return (d.school_id - x) * 21 + 100;
-  //return d.school_id * 21;
 })
 .attr("width", 20)// rectangle
 .attr("height", 20).
@@ -694,13 +682,52 @@ for (var i = 0; i < data.length; i += 4) {
     'text-anchor': 'start',
     'writing-mode': 'tb',
     'font-size': "12px",
-    //'x': (i/4+1)*21+110,
-    //'y': 165,
-    //'rotate':30
-    //"xlink:href": '#curve',
   })
-  //.append("textPath")
-  //.attr("xlink:href", "#curve")
   .text(data[i].schoolname);
-  //.attr('transform', 'rotate(8)');
+
 }
+
+
+
+
+var color = d3.scale.linear()
+.domain([0,6])
+.range(["#F6F0F0", "#FA0404"])
+.interpolate(d3.interpolateRgb);
+
+// Add legend
+var $legend = svg.append('g')
+.attr('transform', 'translate(800, 100)')//move
+.attr('class', 'legend');
+
+$legend.append('text')
+.attr('x', '10')
+.attr('dy', '0.9em')
+.text('0%');
+
+$legend.selectAll('.color')
+.data(d3.range(0,6))
+.enter()
+.append('rect')
+.attr('class', 'color')
+.attr('width', 20)
+.attr('height', 20)
+.attr('x', function (d, i) { return i * (20 + 3) + 40; })
+.attr('fill', function (d, i) { return color(i); });
+
+$legend.append('rect')//未開缺或無資料
+.attr('width', 20)
+.attr('height', 20)
+.attr('x', '40')
+.attr('y', '40')
+.attr('fill',"#000000");
+
+$legend.append('text')
+.attr('x', '64')
+.attr('y', '55')
+.text('未開缺或無資料');
+
+$legend.append('text')
+.attr('x', 5 * (20 + 2) + 69)
+.attr('dy', '0.9em')
+.text('100%');
