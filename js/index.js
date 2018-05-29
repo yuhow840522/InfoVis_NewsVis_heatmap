@@ -521,6 +521,10 @@ var data=[
   {"school_id":130,"schoolname":"國立陽明大學","year":107,"value":0.00 ,"招生人數":2,"錄取人數":0}
 ]
 
+//adjust scale with screen width
+if (screen.width<=1366) {document.write("<style>body{zoom:85%;}</style>");}
+
+
 //get value
 var colorDomain = d3.extent(data, function (d) {
   return d.value;
