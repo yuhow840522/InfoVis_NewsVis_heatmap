@@ -541,7 +541,7 @@ var colorScale = d3.scale.linear()
 // tooltip
 var tip = d3.tip()
 .attr('class', 'd3-tip')
-.offset([122, 0])
+.offset([144, 0])
 .html(function (d) {
   return "學校:" + d.schoolname + "<br>" + "年度:" + d.year + "<br>" +
   "招生名額:" + d.招生人數 + "<br>" + "錄取名額:" + d.錄取人數;
@@ -549,8 +549,8 @@ var tip = d3.tip()
 
 // draw svg scale
 var svg = d3.select('#chart').append("svg")
-.attr("width", 1480)
-.attr("height", 770);
+.attr("width", 1500)
+.attr("height", 600);
 
 var rectangles = svg.selectAll("rect")
 .data(data)
@@ -569,19 +569,19 @@ svg.call(tip);
 
 var s = d3.select('svg');
 
-//w,h
-var y = 50;
+//w,h initial x & y
+var y = 30;
 var x = 0;
 
 rectangles
 .attr("y", function (d) {
   if (d.school_id == 24) {
-    y = 280;
+    y = -1280;
   }
   else if (d.school_id == 67) {
-    y = 490;
+    y = -1490;
   }
-  return (d.year - 103) * 22 + y;
+  return (d.year - 103) * 44 + y;
 })
 .attr("x", function (d) {
   if (d.school_id == 24) {
@@ -590,10 +590,10 @@ rectangles
   else if (d.school_id == 67) {
     x = 66
   }
-  return (d.school_id - x) * 21 + 100;
+  return (d.school_id - x) * 44 + 100;
 })
-.attr("width", 20)// rectangle
-.attr("height", 20).
+.attr("width", 39)// rectangle
+.attr("height", 39).
 style("fill", function (d) {
   return colorScale(d.value);
 });
@@ -606,47 +606,47 @@ for (i = 0; i < 4; i++) {
   s.append("text")
   .attr({
     'text-anchor': 'end',
-    'font-size': "12px",
-    'x': 115,
-    'y': 85 + y_move,
+    'font-size': "22px",
+    'x': 133,
+    'y': 100 + y_move,
 
   })
 
   .text(year_temp+"年");
-  y_move+=22;
+  y_move+=44;
   year_temp+=1;
 }
-
-var year_temp = 104;
-var y_move = 0;
-for (i = 0; i < 4; i++) {
-  s.append("text")
-  .attr({
-    'text-anchor': 'end',
-    'font-size': "12px",
-    'x': 115,
-    'y': 315 + y_move,
-    })
-
-  .text(year_temp+"年");
-  y_move+=22;
-  year_temp+=1;
-}
-
-var year_temp = 104;
-var y_move = 0;
-for (i = 0; i < 4; i++) {
-  s.append("text")
-  .attr({
-    'text-anchor': 'end',
-    'font-size': "12px",
-    'x': 115,
-    'y': 525 + y_move,
-  })
-  .text(year_temp+"年");
-  y_move+=22;
-  year_temp+=1;
-}
+//
+// var year_temp = 104;
+// var y_move = 0;
+// for (i = 0; i < 4; i++) {
+//   s.append("text")
+//   .attr({
+//     'text-anchor': 'end',
+//     'font-size': "12px",
+//     'x': 115,
+//     'y': 315 + y_move,
+//     })
+//
+//   .text(year_temp+"年");
+//   y_move+=22;
+//   year_temp+=1;
+// }
+//
+// var year_temp = 104;
+// var y_move = 0;
+// for (i = 0; i < 4; i++) {
+//   s.append("text")
+//   .attr({
+//     'text-anchor': 'end',
+//     'font-size': "12px",
+//     'x': 115,
+//     'y': 525 + y_move,
+//   })
+//   .text(year_temp+"年");
+//   y_move+=22;
+//   year_temp+=1;
+// }
 //bloak end
 
 
@@ -661,28 +661,28 @@ for (var i = 0; i < data.length; i += 4) {
 
   .attr('x', function () {
     if (i < 92) {
-      return (i / 4 + 1) * 21 + 110;
+      return (i / 4 + 1) * 44 + 120;
     }
     else if (i >= 92 && i < 264) {
-      return ((i - 92) / 4 + 1) * 21 + 110;
+      return -((i - 92) / 4 + 1) * 21 + 110;
     }
     else
-    return ((i - 264) / 4 + 1) * 21 + 110;;
+    return -((i - 264) / 4 + 1) * 21 + 110;;
   })
   .attr('y', function () {
     if (i < 92) {
-      return 163;
+      return 258;
     }
     else if (i >= 92 && i < 264) {
-      return 392;
+      return -1392;
     }
     else
-    return 603;
+    return -1603;
   })
   .attr({
     'text-anchor': 'start',
     'writing-mode': 'tb',
-    'font-size': "12px",
+    'font-size': "24px",
   })
   .text(data[i].schoolname);
 
@@ -697,24 +697,6 @@ var color = d3.scale.linear()
 .range(["#F4E0E0","#FF0000"])
 // .range(["#FF0000","#F4E0E0"])
 .interpolate(d3.interpolateRgb);
-
-// Add legend
-var $legend = svg.append('g')
-.attr('transform', 'translate(1150, 100)')//move
-.attr('class', 'legend');
-
-
-
-// orginal
-// $legend.selectAll('.color')
-// .data(d3.range(0,6))
-// .enter()
-// .append('rect')
-// .attr('class', 'color')
-// .attr('width', 20)
-// .attr('height', 20)
-// .attr('x', function (d, i) { return i * (20 + 3) + 40; })
-// .attr('fill', function (d, i) { return color(i); });
 
 // Add legend
 var $legend = svg.append('g')
