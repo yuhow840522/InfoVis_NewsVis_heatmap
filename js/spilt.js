@@ -523,7 +523,7 @@ var data=[
 
 //adjust scale with screen width
 if (screen.width<=1366) {document.write("<style>body{zoom:80%;}</style>");}
-else if (screen.width<=1680) {document.write("<style>body{zoom:90%;}</style>");}
+else if (screen.width<=1680) {document.write("<style>body{zoom:92%;}</style>");}
 else if (screen.width<=1920) {document.write("<style>body{zoom:100%;}</style>");}
 else {document.write("<style>body{zoom:110%;}</style>");}
 
