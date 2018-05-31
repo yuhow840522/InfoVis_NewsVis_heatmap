@@ -544,7 +544,10 @@ var colorScale = d3.scale.linear()
 // tooltip
 var tip = d3.tip()
 .attr('class', 'd3-tip')
-.offset([122, 0])
+// .offset([122, 0])
+.offset(function() {
+  return [(this.getBBox().height)*6.2, 0]
+})
 .html(function (d) {
   return "學校:" + d.schoolname + "<br>" + "年度:" + d.year + "<br>" +
   "招生名額:" + d.招生人數 + "<br>" + "錄取名額:" + d.錄取人數;
