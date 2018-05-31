@@ -546,17 +546,17 @@ var tip = d3.tip()
 .attr('class', 'd3-tip')
 // .offset([122, 0])
 .offset(function() {
-  return [(this.getBBox().height)*6.2, 0]
+  return [(this.getBBox().height)*5.5, 0]
 })
 .html(function (d) {
-  return "學校:" + d.schoolname + "<br>" + "年度:" + d.year + "<br>" +
-  "招生名額:" + d.招生人數 + "<br>" + "錄取名額:" + d.錄取人數;
+  return  d.schoolname + "<br>"+
+  "招生名額 : " + d.招生人數 + "<br>" + "錄取名額 : " + d.錄取人數;
 })
 
 // draw svg scale
 var svg = d3.select('#chart').append("svg")
 .attr("width", 1480)
-.attr("height", 770);
+.attr("height", 718);
 
 var rectangles = svg.selectAll("rect")
 .data(data)
@@ -576,16 +576,16 @@ svg.call(tip);
 var s = d3.select('svg');
 
 //w,h
-var y = 50;
+var y = 0;
 var x = 0;
 
 rectangles
 .attr("y", function (d) {
   if (d.school_id == 24) {
-    y = 280;
+    y = 230;
   }
   else if (d.school_id == 67) {
-    y = 490;
+    y = 440;
   }
   return (d.year - 103) * 22 + y;
 })
@@ -614,7 +614,7 @@ for (i = 0; i < 4; i++) {
     'text-anchor': 'end',
     'font-size': "12px",
     'x': 115,
-    'y': 85 + y_move,
+    'y': 35 + y_move,
 
   })
 
@@ -631,7 +631,7 @@ for (i = 0; i < 4; i++) {
     'text-anchor': 'end',
     'font-size': "12px",
     'x': 115,
-    'y': 315 + y_move,
+    'y': 265 + y_move,
     })
 
   .text(year_temp+"年");
@@ -647,7 +647,7 @@ for (i = 0; i < 4; i++) {
     'text-anchor': 'end',
     'font-size': "12px",
     'x': 115,
-    'y': 525 + y_move,
+    'y': 475 + y_move,
   })
   .text(year_temp+"年");
   y_move+=22;
@@ -677,13 +677,13 @@ for (var i = 0; i < data.length; i += 4) {
   })
   .attr('y', function () {
     if (i < 92) {
-      return 163;
+      return 113;
     }
     else if (i >= 92 && i < 264) {
-      return 392;
+      return 342;
     }
     else
-    return 603;
+    return 553;
   })
   .attr({
     'text-anchor': 'start',

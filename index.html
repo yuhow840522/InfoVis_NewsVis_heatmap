@@ -28,14 +28,24 @@
     margin:auto;
   }
   .filled {
-      fill: url(#mainGradient);
+    fill: url(#mainGradient);
+  }
+  p{
+    line-height: 1.12;
+    font-size: 12px;
+    font-family:"Microsoft Jhenghei";
+    padding-top: 5px;
   }
 
 </style>
 </head>
 
 <body>
-  <div id="chart"></div>
+  <div id="chart">
+      <p style="  padding-top: 0px;"> 熱點圖以開缺年平均錄取率，由上至下，由左至右依序排列。</p>
+      <p>由上至下三行的比例分別為：錄取率超過75%、錄取率75～25%、錄取率低於50%。</p>
+      <p style="padding-bottom: 0px;"> 以大同大學為例，即剛好開缺年平均錄取率50%。 </p>
+    </div>
 </body>
 <script src='https://d3js.org/d3.v3.min.js  '></script>
 <script src="js/d3tooltip.js"></script>

@@ -546,18 +546,22 @@ var colorScale = d3.scale.linear()
 var tip = d3.tip()
 .attr('class', 'd3-tip')
 // .offset([144, 0])
+// .offset(function() {
+//   return [(this.getBBox().w)/44, 5]
+// })
 .offset(function() {
-  return [(this.getBBox().height)*4.65, 0]
+  return [(this.getBBox().height)*4, 0]
 })
 .html(function (d) {
-  return "學校:" + d.schoolname + "<br>" + "年度:" + d.year + "<br>" +
-  "招生名額:" + d.招生人數 + "<br>" + "錄取名額:" + d.錄取人數;
+  return  d.schoolname + "<br>"+
+  "招生名額 : " + d.招生人數 + "<br>" + "錄取名額 : " + d.錄取人數;
 })
+
 
 // draw svg scale
 var svg = d3.select('#chart').append("svg")
-.attr("width", 1500)
-.attr("height", 600);
+.attr("width", 1100)
+.attr("height", 380);
 
 var rectangles = svg.selectAll("rect")
 .data(data)
@@ -577,7 +581,7 @@ svg.call(tip);
 var s = d3.select('svg');
 
 //w,h initial x & y
-var y = 30;
+var y = 0;
 var x = 0;
 
 rectangles
@@ -588,7 +592,7 @@ rectangles
   else if (d.school_id == 67) {
     y = -1490;
   }
-  return (d.year - 103) * 44 + y;
+  return (d.year - 103) * 33 + y;
 })
 .attr("x", function (d) {
   if (d.school_id == 24) {
@@ -597,10 +601,10 @@ rectangles
   else if (d.school_id == 67) {
     x = 66
   }
-  return (d.school_id - x) * 44 + 100;
+  return (d.school_id - x) * 33 + 100;
 })
-.attr("width", 39)// rectangle
-.attr("height", 39).
+.attr("width", 30)// rectangle
+.attr("height", 30).
 style("fill", function (d) {
   return colorScale(d.value);
 });
@@ -613,14 +617,14 @@ for (i = 0; i < 4; i++) {
   s.append("text")
   .attr({
     'text-anchor': 'end',
-    'font-size': "22px",
-    'x': 133,
-    'y': 100 + y_move,
+    'font-size': "18px",
+    'x': 125,
+    'y': 55 + y_move,
 
   })
 
   .text(year_temp+"年");
-  y_move+=44;
+  y_move+=33;
   year_temp+=1;
 }
 //
@@ -661,14 +665,14 @@ for (i = 0; i < 4; i++) {
 
 //school_nam draw
 var x_text = 0;
-var y_text = 50;
+var y_text = 0;
 for (var i = 0; i < data.length; i += 4) {
   s.append("text")
   //.append("textPath")
 
   .attr('x', function () {
     if (i < 92) {
-      return (i / 4 + 1) * 44 + 120;
+      return (i / 4 + 1) * 33 + 114;
     }
     else if (i >= 92 && i < 264) {
       return -((i - 92) / 4 + 1) * 21 + 110;
@@ -678,7 +682,7 @@ for (var i = 0; i < data.length; i += 4) {
   })
   .attr('y', function () {
     if (i < 92) {
-      return 258;
+      return 170;
     }
     else if (i >= 92 && i < 264) {
       return -1392;
@@ -689,7 +693,7 @@ for (var i = 0; i < data.length; i += 4) {
   .attr({
     'text-anchor': 'start',
     'writing-mode': 'tb',
-    'font-size': "24px",
+    'font-size': "20px",
   })
   .text(data[i].schoolname);
 
@@ -707,7 +711,7 @@ var color = d3.scale.linear()
 
 // Add legend
 var $legend = svg.append('g')
-.attr('transform', 'translate(1180, 100)')//move
+.attr('transform', 'translate(930, 40)')//move
 .attr('class', 'legend');
 
 
