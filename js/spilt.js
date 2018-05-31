@@ -561,7 +561,7 @@ var tip = d3.tip()
 // draw svg scale
 var svg = d3.select('#chart').append("svg")
 .attr("width", 1100)
-.attr("height", 380);
+.attr("height", 500);
 
 var rectangles = svg.selectAll("rect")
 .data(data)
